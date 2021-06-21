@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define EPS 0.001
+#define PI 3.1415926
+
+double t_sin(double x)
+{
+    int n = 0;
+    double s, a;
+    s = a = x;
+    do
+    {
+        n++;
+        a *= -x * x / (2.0 * n) / (2.0 * n + 1.0);
+        s += a;
+    }     while (fabs(a) > EPS);
+    return s;
+}
+
+double t_cos(double x)
+{
+    int n = 0;
+    double s, a;
+    s = a = 1;
+    do
+    {
+        n++;
+        a *= -x * x / (2.0 * n - 1.0) / (2.0 * n);
+        s += a;
+    } while (fabs(a) > EPS);
+    return s;
+} 
+
+int main()
+{
+    double x;
+    double sin_x, cos_x, tan_x;
+    x = 53.231;
+    sin_x = t_sin(x);
+    printf("%g\n", sin_x, sin(x));
+    cos_x = t_cos(x);
+    printf("%g\n", cos_x, cos(x));
+    tan_x = sin_x / cos_x;
+    printf("%g\n", tan_x, tan(x));
+    return 0;
+}
